@@ -1,0 +1,173 @@
+// import { toast } from 'react-toastify'
+// import { useAuth } from '../context/AuthContext'
+
+// const API_BASE_URL = 'https://recruter-backend.vercel.app'
+
+// const useApi = () => {
+//   const { user } = useAuth()
+
+//   const fetchWithAuth = async (url, options = {}) => {
+//     const headers = {
+//       'Content-Type': 'application/json',
+//       ...options.headers,
+//     }
+
+//     if (user?.token) {
+//       headers.Authorization = `Bearer ${user.token}`
+//     }
+
+//     try {
+// 		// console.log('----------------')
+// 		// console.log(`${API_BASE_URL}${url}`)
+//       const response = await fetch(`${API_BASE_URL}${url}`, {
+//         ...options,
+//         headers,
+//       })
+	  
+//       if (!response.ok) {
+//         const errorData = await response.json()
+//         throw new Error(errorData.message || 'Request failed')
+//       }
+
+//       const data = await response.json()
+//       if (data.success === false) {
+//         throw new Error(data.message || 'Operation failed')
+//       }
+
+//       return data
+//     } catch (error) {
+//       toast.error(error.message || 'Something went wrong')
+//       throw error
+//     }
+//   }
+
+//   const getTasks = async () => {
+//     const data = await fetchWithAuth('/api/tasks')
+//     return data.tasks || []
+//   }
+
+//   const createTask = async (taskData) => {
+//     const data = await fetchWithAuth('/api/tasks', {
+//       method: 'POST',
+//       body: JSON.stringify(taskData),
+//     })
+//     return data.task
+//   }
+
+//   const updateTask = async (id, taskData) => {
+//     const data = await fetchWithAuth(`/api/tasks/${id}`, {
+//       method: 'PUT',
+//       body: JSON.stringify(taskData),
+//     })
+//     return data.task
+//   }
+
+//   const deleteTask = async (id) => {
+//     await fetchWithAuth(`/api/tasks/${id}`, {
+//       method: 'DELETE',
+//     })
+//     return id
+//   }
+
+//   const getUsers = async () => {
+//     const data = await fetchWithAuth('/api/users')
+//     return data.users || []
+//   }
+
+//   return {
+//     getTasks,
+//     createTask,
+//     updateTask,
+//     deleteTask,
+//     getUsers,
+//   }
+// }
+
+// export default useApi
+
+
+import { toast } from 'react-toastify'
+import { useAuth } from '../context/AuthContext'
+
+const API_BASE_URL = 'https://recruter-backend.vercel.app/api'
+
+const useApi = () => {
+  const { user } = useAuth()
+
+  const fetchWithAuth = async (url, options = {}) => {
+    const headers = {
+      'Content-Type': 'application/json',
+      ...options.headers,
+    }
+
+    if (user?.token) {
+      headers.Authorization = `Bearer ${user.token}`
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}${url}`, {
+        ...options,
+        headers,
+      })
+
+      if (response.status === 401) {
+        // Handle token expiration
+        throw new Error('Session expired. Please login again.')
+      }
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.message || 'Request failed')
+      }
+
+      return await response.json()
+    } catch (error) {
+      toast.error(error.message || 'Something went wrong')
+      throw error
+    }
+  }
+
+  // Memoize these functions to prevent unnecessary recreations
+  const getTasks = async () => {
+    const data = await fetchWithAuth('/tasks')
+    return data.tasks || []
+  }
+
+  const getUsers = async () => {
+    const data = await fetchWithAuth('/users')
+    return data.users || []
+  }
+
+  const createTask = async (taskData) => {
+    const data = await fetchWithAuth('/tasks', {
+      method: 'POST',
+      body: JSON.stringify(taskData),
+    })
+    return data.task
+  }
+
+  const updateTask = async (id, taskData) => {
+    const data = await fetchWithAuth(`/tasks/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(taskData),
+    })
+    return data.task
+  }
+
+  const deleteTask = async (id) => {
+    await fetchWithAuth(`/tasks/${id}`, {
+      method: 'DELETE',
+    })
+    return id
+  }
+
+  return {
+    getTasks,
+    getUsers,
+    createTask,
+    updateTask,
+    deleteTask,
+  }
+}
+
+export default useApi
