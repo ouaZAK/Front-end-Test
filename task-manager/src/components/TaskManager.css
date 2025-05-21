@@ -65,6 +65,7 @@
 
 .task-list {
   display: flex;
+	justify-content: left;
   flex-direction: column;
   gap: 16px;
   margin-bottom: 20px;
@@ -185,8 +186,9 @@
 
 @media (max-width: 768px) {
   .task-item {
-    flex-direction: column;
-    align-items: flex-start;
+	display: flex;
+	justify-content: left;
+	min-width: 300px;
   }
   
   .task-actions {
@@ -198,7 +200,7 @@
 .task-item.completed .task-title,
 .task-item.completed .task-description {
   text-decoration: line-through;
-  color: #777;
+  color: #000000;
   opacity: 0.6;
 }
 
@@ -237,6 +239,8 @@
 }
 
 .task-item-content {
+	display: flex;
+	flex-direction: row;
   flex: 1;
 }
 
@@ -308,3 +312,22 @@
 }
 
 
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 40ch; 
+}
+
+.task-checkDone {
+	color: green;
+	visibility: hidden;
+
+}
+
+.show {
+  visibility:visible;
+  margin: 10px;
+  margin-top: 30px;
+  margin-right: 20px;
+}

@@ -6,6 +6,7 @@ import { useMemo } from 'react';
 import { useAuth } from '../context/AuthContext';
 import adminIcon from "../assets/adminIcon.svg";
 import userIcon from "../assets/userIcon.svg";
+import checkDone from "../assets/done.svg";
 import check from "../assets/check.svg";
 import useApi from '../services/api';
 
@@ -196,15 +197,20 @@ return (
 		<p className="task-count">{user.role === 'admin' ? 'Your team' : 'You\'ve'} got {taskRemain} tasks to do.</p>
 		
 		<div className="task-list">
-			{filteredTasks.length === 0 ? ( <p>No tasks found</p>) :
+			{filteredTasks.length !== 0 &&
 				filteredTasks.map((task, key) => ( 
 					<div key={key} className={`task-item ${task.completed || task.status === 'done' ? 'completed' : ''}` }>
 						<div className="task-item-content">
-							{isAdmin() && 
-							<div className="task-@">@{task.assignedTo}</div>}
-							<div className="task-user">{task.user}</div>
-							<div className="task-title">{task.title}</div>
-							<div className="task-description">{task.description}</div>
+							<div className={`task-checkDone ${task.completed || task.status === 'done' ? 'show' : ''}`}>
+								<img src={checkDone} alt="" />
+							</div>
+							<div>
+								<div className="task-@">@{task.assignedTo}</div>
+								<div className="task-title">{task.title}</div>
+								<div className="task-description truncate">
+									{task.description.length > 40 ? task.description.slice(0, 40) + '...' : task.description}
+								</div>
+							</div>
 						</div>
 
 						<div className="task-actions">
@@ -216,9 +222,11 @@ return (
 																			}}>
 									<Edit size={18} />
 								</button>)}
+
 							{isAdmin() && <button className="delete-button" onClick={() => handleDelete(task.id)}>
 								<Trash2 size={18} />
 							</button>}
+
 							{!task.completed && (
 							<button className="done-button" onClick={() => handleComplete(task)}>
 								<Check size={16} />
