@@ -30,6 +30,7 @@ const Header = () => {
         <div className="logo">
           <img src={logo} alt="Company Logo" height="40" />
         </div>
+
         {user && (
           <div className="user-info">
             <span className="user-name">
@@ -40,6 +41,7 @@ const Header = () => {
             </button>
           </div>
         )}
+		
       </div>
     </header>
   )

@@ -52,12 +52,14 @@ import TaskManager from '../components/TaskManager'
 
 const Tasks = () => {
   return (
-    // <div className="tasks-page">
-    //   <TaskList />
-    // </div>
+	<>
+    {/* <div className="tasks-page">
+      <TaskList />
+    </div> */}
 	<div className="min-h-screen bg-gray-50">
       <TaskManager />
     </div>
+	</>
   )
 }
 

@@ -15,7 +15,7 @@
 
 // import { useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import Header from './components/Header'
+// import Header from './components/Header'
 import Login from './pages/Login'
 import Tasks from './pages/Tasks'
 import PrivateRoute from './components/PrivateRoute'
@@ -26,13 +26,11 @@ function App() {
   return (
     <AuthProvider>
       <div className="app">
-        <Header />
+        {/* <Header /> */}
         <main className="main-content">
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route
-              path="/tasks"
-              element={
+            <Route path="/tasks" element={
                 <PrivateRoute>
                   <Tasks />
                 </PrivateRoute>

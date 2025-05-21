@@ -89,7 +89,7 @@
 import { toast } from 'react-toastify'
 import { useAuth } from '../context/AuthContext'
 
-const API_BASE_URL = 'https://recruter-backend.vercel.app/api'
+// const API_BASE_URL = 'https://recruter-backend.vercel.app/api'
 
 const useApi = () => {
   const { user } = useAuth()
@@ -105,13 +105,12 @@ const useApi = () => {
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}${url}`, {
+      const response = await fetch(`https://recruter-backend.vercel.app/api${url}`, {
         ...options,
         headers,
       })
 
       if (response.status === 401) {
-        // Handle token expiration
         throw new Error('Session expired. Please login again.')
       }
 
@@ -129,13 +128,24 @@ const useApi = () => {
 
   // Memoize these functions to prevent unnecessary recreations
   const getTasks = async () => {
-    const data = await fetchWithAuth('/tasks')
-    return data.tasks || []
+  try {
+    const data = await fetchWithAuth('/tasks');
+    if (!Array.isArray(data)) {
+      throw new Error('Invalid tasks data format');
+    }
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch tasks:', error);
+    toast.error('Failed to load tasks');
+    return [];
   }
+};
 
   const getUsers = async () => {
     const data = await fetchWithAuth('/users')
-    return data.users || []
+	// console.log('77777')
+	// console.log(data)
+    return data || ['lala']
   }
 
   const createTask = async (taskData) => {
@@ -143,7 +153,7 @@ const useApi = () => {
       method: 'POST',
       body: JSON.stringify(taskData),
     })
-    return data.task
+    return data
   }
 
   const updateTask = async (id, taskData) => {
@@ -151,7 +161,7 @@ const useApi = () => {
       method: 'PUT',
       body: JSON.stringify(taskData),
     })
-    return data.task
+    return data
   }
 
   const deleteTask = async (id) => {
