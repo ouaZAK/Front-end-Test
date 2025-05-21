@@ -190,7 +190,7 @@ return (
 
 	<main className="task-content">
 		<h1 className="welcome-title">
-			Welcome, <span className="admin-name">{user.username}</span>.
+			Welcome, <span className="admin-name">{user.firstName || user.lastName || user.username}</span>.
 		</h1>
 		
 		<p className="task-count">{user.role === 'admin' ? 'Your team' : 'You\'ve'} got {taskRemain} tasks to do.</p>
@@ -200,7 +200,8 @@ return (
 				filteredTasks.map((task, key) => ( 
 					<div key={key} className={`task-item ${task.completed || task.status === 'done' ? 'completed' : ''}` }>
 						<div className="task-item-content">
-							{isAdmin() && <div>@{task.assignedTo}</div>}
+							{isAdmin() && 
+							<div className="task-@">@{task.assignedTo}</div>}
 							<div className="task-user">{task.user}</div>
 							<div className="task-title">{task.title}</div>
 							<div className="task-description">{task.description}</div>
@@ -208,23 +209,21 @@ return (
 
 						<div className="task-actions">
 							{!task.completed && (
-							<>
 								<button className="edit-button" onClick={() => {
 																				setIsAddTaskOpen(true);
 																				setEditClicked(true);
 																				setTaskId(task.id)
 																			}}>
 									<Edit size={18} />
-								</button>
-								<button className="done-button" onClick={() => handleComplete(task)}>
-									<Check size={16} />
-									<span>Done</span>
-								</button>
-							</>
-							)}
+								</button>)}
 							{isAdmin() && <button className="delete-button" onClick={() => handleDelete(task.id)}>
 								<Trash2 size={18} />
 							</button>}
+							{!task.completed && (
+							<button className="done-button" onClick={() => handleComplete(task)}>
+								<Check size={16} />
+								<span>Done</span>
+							</button>)}
 						</div>
 					</div>
 				))}
