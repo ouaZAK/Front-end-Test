@@ -1,4 +1,4 @@
-/* Popup modal background */
+
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -12,24 +12,22 @@
   z-index: 1000;
 }
 
-/* The centered modal box */
 .taskform-box {
   background-color: white;
   padding: 24px 32px;
+  padding-right: 30px;
   border-radius: 16px;
   width: 100%;
-  max-width: 480px;
+  max-width: 600px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
-/* Heading */
 .taskform-box h2 {
   margin-bottom: 24px;
   text-align: center;
   color: #333;
 }
 
-/* Input group layout */
 .form-group {
   margin-bottom: 20px;
   display: flex;
@@ -42,12 +40,11 @@
   color: #333;
 }
 
-/* Input styles */
 input,
 select,
 textarea {
   padding: 12px;
-  border-radius: 10px;
+  border-radius: 15px !important;
   border: 1px solid #ccc;
   font-size: 14px;
   background-color: #f1f1f1;
@@ -55,11 +52,11 @@ textarea {
 
 textarea {
   min-height: 80px;
-  resize: vertical;
+  resize: horizontal;
   color: #555;
+  width: 97% !important;
 }
 
-/* Buttons area */
 .form-buttons {
   display: flex;
   justify-content: flex-end;
@@ -67,7 +64,6 @@ textarea {
   margin-top: 10px;
 }
 
-/* Buttons */
 .cancel-button,
 .save-button {
   padding: 10px 20px;
@@ -94,4 +90,69 @@ textarea {
 
 .save-button:hover {
   background-color: #0069d9;
+}
+
+
+
+
+.task-assign {
+	display: flex;
+	justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.form-group input,
+.form-group select {
+	border: none;
+  border-radius: 15px;
+  padding: 12px 16px;
+  font-size: 14px;
+  /* width: 100%; */
+}
+
+.select{
+	/* display: flex;
+	flex-direction: column; */
+	/* justify-content: end; */
+	/* align-items:baseline; */
+	max-width: 224px;
+	width: 100% ;
+}
+select {
+	width: 100% ;
+	max-width: 356px;
+	min-width: 100px;
+	/* box-sizing: border-box;  */
+}
+input {
+  width: 100% ; 
+  max-width: 100%; 
+  min-width: 100px;
+  box-sizing: border-box;
+}
+
+.text-area{
+	width: 100%;
+	/* max-width: 495px; */
+	padding: 16px;
+	border: solid;
+	border-radius: 35px;
+	font-size: 14px;
+	resize: none; 
+	/* box-sizing: border-box; */
+	min-height: 100px;
+	
+}
+
+.task-assign {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.task-assign .form-group {
+  flex: 1;
+  min-width: 100px;
 }

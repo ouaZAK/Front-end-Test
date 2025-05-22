@@ -151,8 +151,7 @@ const handleSave = () => {
 		id: tskId
 	});
 	
-	// if (isAdmin())
-		onClose();
+	onClose();
 };
 
 useEffect(() => {
@@ -180,30 +179,33 @@ if (!open) return null;
 return (
 	<div className="modal-backdrop">
 	<div className="taskform-box" ref={modalRef}>
-		<h2>Add Task</h2>
+		<div className='task-assign'>
+			<div className="form-group input">
+			<label className='task-title-form'>Task title</label>
+			<input className='text-input' value={title} onChange={(e) => setTitle(e.target.value)} />
+			</div>
 
-		<div className="form-group">
-		<label>Task title</label>
-		<input value={title} onChange={(e) => setTitle(e.target.value)} />
+			{isAdmin() && (
+				<div className="form-group select">
+					<label className="task-title-form">Assign to</label>
+					<select value={assignedTo} onChange={(e) => setAssignedTo(e.target.value)} required>
+						<option value="">User</option>
+						{
+							usersList.map((user, key) => (
+							<option key={key} value={user.username}>
+								{user.username}
+							</option>
+						))}
+					</select>
+				</div>
+			)}
 		</div>
 
-		{isAdmin() && (
-			<div className="form-group">
-			<label>Assign to</label>
-			<select value={assignedTo} onChange={(e) => setAssignedTo(e.target.value)} required>
-				<option value="">Select User</option>
-				{
-					usersList.map((user, key) => (
-					<option key={key} value={user.username}>
-						{user.username}
-					</option>
-				))}
-			</select>
-		</div>)}
-
 		<div className="form-group">
-		<label>Description</label>
-		<textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+		<label className='task-title-form'>Description</label>
+		<textarea 	className='text-area' placeholder="Note: Add relevant details, blockers, or context for this task here."
+					value={description} 
+					onChange={(e) => setDescription(e.target.value)} />
 		</div>
 
 		<div className="form-buttons">

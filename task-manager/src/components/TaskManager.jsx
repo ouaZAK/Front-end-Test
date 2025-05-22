@@ -181,10 +181,10 @@ return (
 		</div>
 		{user && (
 			<div className="admin-container">
-			<span>{user.username}</span>
-			<button  className="admin-avatar" onClick={handleLogout}>
+			<span>{user.firstName || user.lastName || user.username}</span>
+			<div  className="admin-avatar" onClick={handleLogout}>
 				<img src={user.role === 'admin' ? adminIcon : userIcon} alt="" />
-			</button >
+			</div >
 			</div>)
 		}
 	</header>
@@ -204,11 +204,11 @@ return (
 							<div className={`task-checkDone ${task.completed || task.status === 'done' ? 'show' : ''}`}>
 								<img src={checkDone} alt="" />
 							</div>
-							<div>
+							<div className='tasks-wrap'>
 								<div className="task-@">@{task.assignedTo}</div>
 								<div className="task-title">{task.title}</div>
 								<div className="task-description truncate">
-									{task.description.length > 40 ? task.description.slice(0, 40) + '...' : task.description}
+									{task.description.length > 150 ? task.description.slice(0, 150) + '...' : task.description}
 								</div>
 							</div>
 						</div>

@@ -1,19 +1,20 @@
-/* Login.css */
+
 .login-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: 80vh;
   padding: 20px;
-  background-color: #f5f7fa;
+  /* background-color: #fbfcfe; */
 }
 
 .login-card {
   width: 100%;
-  max-width: 420px;
+  max-width: 380px;
+  max-height: 443px;
   padding: 32px;
   border-radius: 16px;
-  background-color: white;
+  border: 1px solid #007FFF;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
@@ -25,8 +26,6 @@
 }
 
 .logo-icon {
-  width: 32px;
-  height: 32px;
   margin-right: 8px;
 }
 
@@ -38,10 +37,11 @@
 
 .login-title {
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 600;
   color: #111;
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 1px;
+  padding-top: 40px;
 }
 
 .login-form {
@@ -93,7 +93,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #8e9196;
+  color: #000000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,7 +110,7 @@
   border-radius: 12px;
   background-color: #0080FF;
   color: white;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   border: none;
   cursor: pointer;
