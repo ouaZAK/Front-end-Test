@@ -4,11 +4,9 @@ import TaskForm from './TaskForm';
 import './TaskManager.css';
 import { useMemo } from 'react';
 import { useAuth } from '../context/AuthContext';
-import adminIcon from "../assets/adminIcon.svg";
-import userIcon from "../assets/userIcon.svg";
-import checkDone from "../assets/done.svg";
-import check from "../assets/check.svg";
 import useApi from '../services/api';
+import TaskItem from './TaskItem';
+import Header from './Header';
 
 const TaskManager = () => {
 const { user, logout, isAdmin } = useAuth();
@@ -156,79 +154,41 @@ if (error) return <div className="error-message">Error: {error}</div>
 
 return (
 	<div className="task-manager">
-	<header className="task-header">
-		<div className="logo">
-		<div className="logo-icon">
-			<img src={check} alt="" />
-		</div>
-		<span>Taski</span>
-		</div>
-		{user && (
-			<div className="admin-container">
-			<span>{user.firstName || user.lastName || user.username}</span>
-			<div  className="admin-avatar" onClick={handleLogout}>
-				<img src={user.role === 'admin' ? adminIcon : userIcon} alt="" />
-			</div >
-			</div>)
-		}
-	</header>
+		<Header user={user} onLogout={handleLogout} />
 
-	<main className="task-content">
-		<h1 className="welcome-title">
-			Welcome, <span className="admin-name">{user.firstName || user.lastName || user.username}</span>.
-		</h1>
-		
-		<p className="task-count">{user.role === 'admin' ? 'Your team' : 'You\'ve'} got {taskRemain} tasks to do.</p>
-		
-		<div className="task-list">
-			{filteredTasks.length !== 0 &&
-				filteredTasks.map((task, key) => ( 
-					<div key={key} className={`task-item ${task.completed || task.status === 'done' ? 'completed' : ''}` }>
-						<div className="task-item-content">
-							<div className={`task-checkDone ${task.completed || task.status === 'done' ? 'show' : ''}`}>
-								<img src={checkDone} alt="" />
-							</div>
-							<div className='tasks-wrap'>
-								<div className="task-@">@{task.assignedTo}</div>
-								<div className="task-title">{task.title}</div>
-								<div className="task-description truncate">
-									{task.description.length > 120 ? task.description.slice(0, 120) + '...' : task.description}
-								</div>
-							</div>
-						</div>
-
-						<div className="task-actions">
-							{!task.completed && (
-								<button className="edit-button" onClick={() => {
-																				setIsAddTaskOpen(true);
-																				setEditClicked(true);
-																				setTaskId(task.id)
-																			}}>
-									<Edit size={18} />
-								</button>)}
-
-							{isAdmin() && <button className="delete-button" onClick={() => handleDelete(task.id)}>
-								<Trash2 size={18} />
-							</button>}
-
-							{!task.completed && (
-							<button className="done-button" onClick={() => handleComplete(task)}>
-								<Check size={16} />
-								<span>Done</span>
-							</button>)}
-						</div>
-					</div>
+		<main className="task-content">
+			<h1 className="welcome-title">
+				Welcome, <span className="admin-name">{user.firstName || user.lastName || user.username}</span>.
+			</h1>
+			
+			<p className="task-count">{user.role === 'admin' ? 'Your team' : 'You\'ve'} got {taskRemain} tasks to do.</p>
+			
+			<div className="task-list">
+				{filteredTasks.length !== 0 &&
+					filteredTasks.map((task) => (
+					<TaskItem
+						key={task.id}
+						task={task}
+						isAdmin={isAdmin()}
+						onEdit={() => {
+							setIsAddTaskOpen(true);
+							setEditClicked(true);
+							setTaskId(task.id);
+						}}
+						onDelete={() => handleDelete(task.id)}
+						onComplete={() => handleComplete(task)}
+					/>
 				))}
 			</div>
-				
+					
 
-		{isAdmin() && (
-			<button className="add-task-button" onClick={() => setIsAddTaskOpen(true)}>
-				<Plus size={16} />
-				<span>Add a new task...</span>
-			</button> )}
-		<TaskForm open={isAddTaskOpen} onClose={() => {setIsAddTaskOpen(false); setEditClicked(false)}} onSave={editClicked ? handleEdit : handleAddTask} users={users} tskId={taskId}/>
-	</main>
+			{isAdmin() && (
+				<button className="add-task-button" onClick={() => setIsAddTaskOpen(true)}>
+					<Plus size={16} />
+					<span>Add a new task...</span>
+				</button> )}
+			<TaskForm open={isAddTaskOpen} onClose={() => {setIsAddTaskOpen(false); setEditClicked(false)}} onSave={editClicked ? handleEdit : handleAddTask} users={users} tskId={taskId}/>
+		</main>
 	</div>
 );
 };
