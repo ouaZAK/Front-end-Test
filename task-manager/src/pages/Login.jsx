@@ -3,6 +3,8 @@ import { Eye, EyeOff } from 'lucide-react';
 import './Login.css';
 import { useAuth } from '../context/AuthContext'
 import checkLogo from '../assets/check.svg'
+import { toast } from 'react-toastify'
+
 const Login = () => {
   const [password, setPassword] = useState('')
   const { login } = useAuth()
@@ -13,7 +15,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
-      alert('Please enter both username and password')
+      toast.error('Please enter both username and password')
       return
     }
     await login(email, password)

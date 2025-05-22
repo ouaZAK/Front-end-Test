@@ -1,19 +1,3 @@
-// import Router from './router'
-// import { ToastContainer } from 'react-toastify'
-// import 'react-toastify/dist/ReactToastify.css'
-// import './index.css'
-
-// export default function App() {
-//   return (
-//     <>
-//       <Router />
-//       <ToastContainer />
-//     </>
-//   )
-// }
-
-
-// import { useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 // import Header from './components/Header'
 import Login from './pages/Login'

@@ -31,7 +31,6 @@ const fetchData = useCallback(async () => {
 		try {
 			setLoading(true)
 			setError(null)
-			
 			const tasksData = await getTasks()
 			setTasks(tasksData)
 			console.log(tasksData)
@@ -58,17 +57,14 @@ const fetchData = useCallback(async () => {
 
 
 
-// Task form dialog state
 const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
 const [editClicked, setEditClicked] = useState(false);
 
-// Function to handle logout - this will be provided by you
 const handleLogout = () => {
 	logout();
 	console.log('Logout function called');
 };
 
-// Function to handle edit - this will be provided by you
 const handleEdit = async (taskUpdated) => {
 		// console.log('bef : ', taskUpdated, '=== end ==');
 	console.log('entered handl edit')
@@ -77,13 +73,13 @@ const handleEdit = async (taskUpdated) => {
     if (taskToEdit) {
 		try {
 			const resp = await updateTask(taskUpdated.id, taskUpdated)
-			
+			if (!resp) {console.log('err in fetch')}
 			setTasks(
 				tasks.map((prevTask) => (prevTask.id === taskUpdated.id ? { ...prevTask,  ...taskUpdated } : prevTask))
 			)
 			setIsAddTaskOpen(false);
 			setEditClicked(false);
-			console.log('task updated click false')
+			console.log('%c@@@@@@@ edit handler @@@@@@', 'color:red;')
 			// console.log('task updated : ', resp,' ', resp.id, '=== end ==');
 			return;
 			} catch (error) {
@@ -99,7 +95,6 @@ const handleDelete = async (taskId) => {
 	try {
 		setTasks(tasks.filter((task) => task.id !== taskId))
 		await deleteTask(taskId)
-		// await fetchData();
 	} catch (error) {
 		console.error('Error deleting task:', error)
 	}
@@ -107,10 +102,6 @@ const handleDelete = async (taskId) => {
 
 const handleStatusChange = async (task) => {
 		try {
-			console.log('@@@@@@@@@@@@ 1')
-			console.log(task)
-			console.log(task.status)
-			console.log('@@@@@@@@@@@@ 2')
 		const newStatus = task.status === 'done' ? 'in_progress' : 'done'
 		const updatedTask = { ...task, status: newStatus }
 		await updateTask(task.id, updatedTask)
@@ -122,7 +113,6 @@ const handleStatusChange = async (task) => {
 		}
 	}
 
-// Function to mark a task as complete
 const handleComplete = (task) => {
 	const taskId = task.id;
 	setTasks(tasks.map(task => 
@@ -132,10 +122,8 @@ const handleComplete = (task) => {
 };
 
 
-// Function to add a new task
 const handleAddTask = async (newTaskData) => {
 	const newTask = {
-		// id: Date.now(),
 		title: newTaskData.title,
 		description: newTaskData.description,
 		status: 'in_progress',
@@ -144,16 +132,12 @@ const handleAddTask = async (newTaskData) => {
 
 	console.log(newTask)
 	try {
-		// const data = await createTask(newTask)
-		// setTasks(data);
-		// setIsAddTaskOpen(false);
 		const createdTask = await createTask(newTask);
         console.log('Created task:', createdTask);
         if (!createdTask || !createdTask.id) {
             throw new Error('Invalid task creation response');
         }
-		
-        // Add the new task to existing tasks
+	
         setTasks(prevTasks => [...prevTasks, createdTask]);
         setIsAddTaskOpen(false);
 
@@ -208,7 +192,7 @@ return (
 								<div className="task-@">@{task.assignedTo}</div>
 								<div className="task-title">{task.title}</div>
 								<div className="task-description truncate">
-									{task.description.length > 150 ? task.description.slice(0, 150) + '...' : task.description}
+									{task.description.length > 120 ? task.description.slice(0, 120) + '...' : task.description}
 								</div>
 							</div>
 						</div>

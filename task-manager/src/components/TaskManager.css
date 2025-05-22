@@ -74,16 +74,7 @@
   margin-bottom: 20px;
 }
 
-.task-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f7f7f7;
-  border-radius: 10px;
-  padding: 16px 20px;
-  transition: box-shadow 0.2s, transform 0.2s;
-  position: relative;
-}
+
 
 .task-item:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -124,9 +115,10 @@
 }
 
 .task-actions {
-	
-  display: none;
+  display: flex;
+  justify-content: end;
   gap: 8px;
+  margin-left: auto;
 }
 
 .task-item:hover .task-actions {
@@ -201,7 +193,6 @@
   
   .task-actions {
     margin-top: 10px;
-    align-self: flex-end;
   }
 }
 
@@ -244,6 +235,7 @@
   justify-content: space-between;
   align-items: center;
   transition: box-shadow 0.2s ease;
+  flex-wrap: wrap;
 }
 
 .task-item-content {
