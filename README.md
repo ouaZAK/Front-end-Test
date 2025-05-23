@@ -10,7 +10,7 @@ This project was built as a response to a front-end coding exercise that require
 - Delivering a clean, user-friendly interface
 
 ## Live Demo
-https://github.com/ouaZAK/Front-end-Test/blob/main/task-manager/src/assets/outDemo.mp4
+https://github.com/ouaZAK/Front-end-Test/tree/main/task-manager/src/assets/outDemo.mp4
 
 ### Installation
 1. Clone the repository
@@ -95,43 +95,4 @@ https://github.com/ouaZAK/Front-end-Test/blob/main/task-manager/src/assets/outDe
 
 
 ## Project Structure
-
-task-manager/
-├── src/
-|	├── assets
-|	│   ├── addTask.svg
-|	│   ├── adminIcon.svg
-|	│   ├── check.svg
-|	│   ├── delete.svg
-|	│   ├── done.svg
-|	│   ├── edit.svg
-|	│   ├── outDemo.mp4
-|	│   ├── passwordEye.svg
-|	│   ├── react.svg
-|	│   └── userIcon.svg
-|	├── css
-|	│   ├── App.css
-|	│   ├── Login.css
-|	│   ├── TaskForm.css
-|	│   ├── TaskManager.css
-|	│   └── index.css
-|	├── components
-|	│   ├── Header.jsx
-|	│   ├── PrivateRoute.jsx
-|	│   ├── TaskForm.jsx
-|	│   ├── TaskItem.jsx
-|	│   └── TaskManager.jsx
-|	├── context
-|	│   └── AuthContext.jsx
-|	├── hooks
-|	│   └── useAuth.jsx
-|	├── pages
-|	│   ├── Login.jsx
-|	│   └── Tasks.jsx
-|	└── services
-|		└── api.jsx
-├── App.jsx
-├── main.jsx
-├── index.html
-├── package.json
-└── README.md
+```text task-manager/ ├── src/ │ ├── assets │ │ ├── addTask.svg │ │ ├── adminIcon.svg │ │ ├── check.svg │ │ ├── delete.svg │ │ ├── done.svg │ │ ├── edit.svg │ │ ├── outDemo.mp4 │ │ ├── passwordEye.svg │ │ ├── react.svg │ │ └── userIcon.svg │ ├── css │ │ ├── App.css │ │ ├── Login.css │ │ ├── TaskForm.css │ │ ├── TaskManager.css │ │ └── index.css │ ├── components │ │ ├── Header.jsx │ │ ├── PrivateRoute.jsx │ │ ├── TaskForm.jsx │ │ ├── TaskItem.jsx │ │ └── TaskManager.jsx │ ├── context │ │ └── AuthContext.jsx │ ├── hooks │ │ └── useAuth.jsx │ ├── pages │ │ ├── Login.jsx │ │ └── Tasks.jsx │ └── services │ └── api.jsx ├── App.jsx ├── main.jsx ├── index.html ├── package.json └── README.md ```
