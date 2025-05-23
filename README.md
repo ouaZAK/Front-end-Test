@@ -10,7 +10,7 @@ This project was built as a response to a front-end coding exercise that require
 - Delivering a clean, user-friendly interface
 
 ## Live Demo
-https://github.com/ouaZAK/Front-end-Test/tree/main/task-manager/src/assets/outDemo.mp4
+https://github.com/ouaZAK/Front-end-Test/tree/main/task-manager/src/assets/demo.gif
 
 ### Installation
 1. Clone the repository
