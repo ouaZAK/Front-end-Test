@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
-import './Login.css';
+import '../css/Login.css';
 import { useAuth } from '../context/AuthContext'
 import checkLogo from '../assets/check.svg'
 import { toast } from 'react-toastify'
@@ -42,7 +42,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="leslie@pixsellz.io" 
-              required 
+            //   required 
             />
           </div>
           
@@ -55,7 +55,7 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••••••" 
-                required 
+                // required 
               />
               <button 
                 type="button"

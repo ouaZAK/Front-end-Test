@@ -4,7 +4,7 @@ import Login from './pages/Login'
 import Tasks from './pages/Tasks'
 import PrivateRoute from './components/PrivateRoute'
 import { AuthProvider } from './context/AuthContext'
-import './App.css'
+import './css/App.css'
 
 function App() {
   return (

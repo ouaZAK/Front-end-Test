@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { Check, Edit, Plus, Trash2, User } from 'lucide-react';
 import TaskForm from './TaskForm';
-import './TaskManager.css';
+import '../css/TaskManager.css';
 import { useMemo } from 'react';
 import { useAuth } from '../context/AuthContext';
 import useApi from '../services/api';
@@ -31,13 +31,13 @@ const fetchData = useCallback(async () => {
 			setError(null)
 			const tasksData = await getTasks()
 			setTasks(tasksData)
-			console.log(tasksData)
+			// console.log(tasksData)
 			if (isAdmin()) {
 				const usersData = await getUsers()
 				setUsers(usersData)
 			} 
 		} catch (error) {
-			console.error('Error fetching data:', error)
+			// console.error('Error fetching data:', error)
 			setError(error.message)
 		} finally {
 			setLoading(false)
@@ -60,12 +60,11 @@ const [editClicked, setEditClicked] = useState(false);
 
 const handleLogout = () => {
 	logout();
-	console.log('Logout function called');
+	// console.log('Logout function called');
 };
 
 const handleEdit = async (taskUpdated) => {
 		// console.log('bef : ', taskUpdated, '=== end ==');
-	console.log('entered handl edit')
 	if (taskUpdated.id !== undefined) {
     const taskToEdit = tasks.find(task => task.id === taskUpdated.id);
     if (taskToEdit) {
@@ -77,13 +76,13 @@ const handleEdit = async (taskUpdated) => {
 			)
 			setIsAddTaskOpen(false);
 			setEditClicked(false);
-			console.log('%c@@@@@@@ edit handler @@@@@@', 'color:red;')
+			// console.log('%c@@@@@@@ edit handler @@@@@@', 'color:red;')
 			// console.log('task updated : ', resp,' ', resp.id, '=== end ==');
 			return;
 			} catch (error) {
 				console.error('Error updating task status:', error)
-			}
-			console.log('Edited task:', tasks, '-------++++++',);
+		}
+			// console.log('Edited task:', tasks, '-------++++++',);
     }
     setIsAddTaskOpen(true);
   }
@@ -128,10 +127,10 @@ const handleAddTask = async (newTaskData) => {
 		assignedTo: newTaskData.assignedTo
 	};
 
-	console.log(newTask)
+	// console.log(newTask)
 	try {
 		const createdTask = await createTask(newTask);
-        console.log('Created task:', createdTask);
+        // console.log('Created task:', createdTask);
         if (!createdTask || !createdTask.id) {
             throw new Error('Invalid task creation response');
         }
@@ -145,11 +144,10 @@ const handleAddTask = async (newTaskData) => {
 		}, 500);
 	} catch (error) {
 		console.error('Error deleting task:', error)
-		// setTasks(prev => prev.filter(t => t.id !== createdTask?.id));
 	}
 };
 
-if (loading) return <div>Loading tasks...</div>
+// if (loading) return <div>Loading tasks...</div>
 if (error) return <div className="error-message">Error: {error}</div>
 
 return (
@@ -163,7 +161,8 @@ return (
 			
 			<p className="task-count">{user.role === 'admin' ? 'Your team' : 'You\'ve'} got {taskRemain} tasks to do.</p>
 			
-			<div className="task-list">
+			{loading ? <div>Loading tasks...</div> 
+				: <div className="task-list">
 				{filteredTasks.length !== 0 &&
 					filteredTasks.map((task) => (
 					<TaskItem
@@ -179,7 +178,7 @@ return (
 						onComplete={() => handleComplete(task)}
 					/>
 				))}
-			</div>
+			</div>}
 					
 
 			{isAdmin() && (
